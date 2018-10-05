@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "Thorium Mobile",
-    "description": "A handheld scanner app which connects to Thorium.",
-    "slug": "thoriumTricorder",
+    "description": "A companion mobile application for Thorium.",
+    "slug": "thorium-mobile",
     "privacy": "public",
     "sdkVersion": "30.0.0",
     "platforms": ["ios", "android"],

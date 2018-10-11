@@ -20,7 +20,7 @@ export default class Client extends Component {
     return (
       <ApolloProvider client={client}>
         <ErrorBoundary>
-          <ClientData client={client} />
+          <ClientData />
         </ErrorBoundary>
       </ApolloProvider>
     );

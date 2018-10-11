@@ -18,33 +18,41 @@ import { WebBrowser } from "expo";
 import checkServerAddress from "../helpers/checkServerAddress";
 
 export default class Connect extends Component {
-  state = { address: "", saveAddress: true };
+  state = { address: "", saveAddress: true, checking: false };
   checkAddress = async () => {
+    this.setState({ checking: true });
     const { address, saveAddress } = this.state;
-    const finalAddress = await checkServerAddress(address);
-    if (!finalAddress) {
-      Alert.alert(
-        "Error accessing server",
-        "No Thorium server exists at that address."
-      );
-      return;
-    }
-    const { address: otherAddress, port } = finalAddress;
-    if (saveAddress) {
-      try {
-        await AsyncStorage.setItem("@Thorium:serverAddress", otherAddress);
-      } catch (error) {
-        // Error saving data
-      }
-    }
-    this.props.connect(finalAddress);
+    checkServerAddress(address)
+      .then(finalAddress => {
+        this.setState({ checking: false });
+        if (!finalAddress) {
+          Alert.alert(
+            "Error accessing server",
+            "No Thorium server exists at that address."
+          );
+          return;
+        }
+        const { address: otherAddress, port } = finalAddress;
+        if (saveAddress) {
+          AsyncStorage.setItem("@Thorium:serverAddress", otherAddress);
+        }
+        this.props.connect(
+          otherAddress,
+          port
+        );
+      })
+      .catch(err => {
+        console.log("I caught an error.");
+        console.log(err);
+        this.setState({ checking: false });
+      });
   };
-  handlePressButtonAsync = async () => {
-    let result = await WebBrowser.openBrowserAsync("https://thoriumsim.com");
+  handlePressButtonAsync = () => {
+    WebBrowser.openBrowserAsync("https://thoriumsim.com");
   };
   render() {
     const resizeMode = "cover";
-    const { saveAddress } = this.state;
+    const { saveAddress, checking } = this.state;
     return (
       <View
         style={{
@@ -74,77 +82,95 @@ export default class Connect extends Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: "transparent",
-              // justifyContent: "center",
-              alignItems: "center"
-            }}
-          >
-            <Image
-              style={{ maxHeight: "20%", resizeMode: "contain" }}
-              source={require("../assets/images/logo.png")}
-            />
-            <Text
+          {checking ? (
+            <View
               style={{
-                textAlign: "center",
-                fontSize: 40,
-                color: "white"
+                flex: 1,
+                backgroundColor: "transparent",
+                justifyContent: "center",
+                alignItems: "center"
               }}
             >
-              Thorium{" "}
-            </Text>
-            <View>
-              <Text style={{ color: "white" }}>
-                Enter the Thorium Server address
+              <Text style={{ color: "white", fontSize: 30 }}>
+                Checking Server Address...
               </Text>
-              <View style={{ flexDirection: "row" }}>
-                <TextInput
-                  style={{
-                    flex: 1,
-                    height: 40,
-                    borderColor: "gray",
-                    borderWidth: 1,
-                    paddingHorizontal: 10,
-                    paddingVertical: 5,
-                    color: "white",
-                    borderRadius: 10
-                  }}
-                  keyboardType="numeric"
-                  value={this.state.address}
-                  onChangeText={text => this.setState({ address: text })}
-                />
-                <Button
-                  onPress={this.checkAddress}
-                  title="Go"
-                  color="#841584"
-                />
-              </View>
-              <View
+            </View>
+          ) : (
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: "transparent",
+                // justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+              <Image
+                style={{ maxHeight: "20%", resizeMode: "contain" }}
+                source={require("../assets/images/logo.png")}
+              />
+              <Text
                 style={{
-                  flexDirection: "row",
-                  justifyContent: "space-around",
-                  alignItems: "center",
-                  paddingTop: 20
+                  textAlign: "center",
+                  fontSize: 40,
+                  color: "white"
                 }}
               >
-                <Switch
-                  value={saveAddress}
-                  onValueChange={value => this.setState({ saveAddress: value })}
-                />
-                <Text style={{ color: "white" }}>Save server address</Text>
-              </View>
-              <TouchableOpacity
-                style={{ marginTop: 20 }}
-                onPress={this.handlePressButtonAsync}
-              >
-                <Text style={{ color: "#157EFB", textAlign: "center" }}>
-                  Get Thorium Server
+                Thorium{" "}
+              </Text>
+              <View>
+                <Text style={{ color: "white" }}>
+                  Enter the Thorium Server address
                 </Text>
-              </TouchableOpacity>
+                <View style={{ flexDirection: "row" }}>
+                  <TextInput
+                    style={{
+                      flex: 1,
+                      height: 40,
+                      borderColor: "gray",
+                      borderWidth: 1,
+                      paddingHorizontal: 10,
+                      paddingVertical: 5,
+                      color: "white",
+                      borderRadius: 10
+                    }}
+                    value={this.state.address}
+                    onChangeText={text => this.setState({ address: text })}
+                  />
+                  <Button
+                    onPress={this.checkAddress}
+                    title="Go"
+                    color="#841584"
+                  />
+                </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                    alignItems: "center",
+                    paddingTop: 20
+                  }}
+                >
+                  <Switch
+                    value={saveAddress}
+                    onValueChange={value =>
+                      this.setState({ saveAddress: value })
+                    }
+                  />
+                  <Text style={{ color: "white" }}>Save server address</Text>
+                </View>
+                {Platform.OS !== "android" && (
+                  <TouchableOpacity
+                    style={{ marginTop: 20 }}
+                    onPress={this.handlePressButtonAsync}
+                  >
+                    <Text style={{ color: "#157EFB", textAlign: "center" }}>
+                      Get Thorium Server
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </View>
             </View>
-          </View>
+          )}
         </ScrollView>
       </View>
     );

@@ -5,6 +5,8 @@ import { getMainDefinition } from "apollo-utilities";
 import { onError } from "apollo-link-error";
 import { WebSocketLink } from "apollo-link-ws";
 import { Hermes } from "apollo-cache-hermes";
+import { InMemoryCache } from "apollo-cache-inmemory";
+
 import { Constants } from "expo";
 const clientId = Constants.deviceName;
 
@@ -20,7 +22,7 @@ export function getClient(address, port) {
     if (!address || !port) {
       return false;
     }
-
+    console.log(`http://${address}:${parseInt(port, 10)}/graphql`);
     const wsLink = new WebSocketLink({
       uri: `ws://${address}:${parseInt(port, 10) + 1}/subscriptions`,
       options: {
@@ -61,7 +63,7 @@ export function getClient(address, port) {
     const cache = new Hermes();
     client = new ApolloClient({
       link,
-      cache
+      cache: new InMemoryCache()
     });
     return client;
   } catch (err) {

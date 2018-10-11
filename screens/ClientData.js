@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { View, Text } from "react-native";
 import { Constants } from "expo";
-import { Query } from "react-apollo";
+import { Query, withApollo } from "react-apollo";
 import gql from "graphql-tag";
 import SubscriptionHelper from "../helpers/subscriptionHelper";
 import SimulatorData from "./SimulatorData";
 import * as allCards from "../cards";
 
 const cards = Object.keys(allCards);
-console.log(cards);
 const clientId = Constants.deviceName;
 
 const queryData = `
@@ -48,17 +47,19 @@ class ClientData extends Component {
   componentDidMount() {
     const { client } = this.props;
     // Register the client for the first time.
-    setTimeout(() => {
-      client.mutate({
+    client
+      .mutate({
         mutation: gql`
           mutation RegisterClient($client: ID!, $cards: [String]) {
             clientConnect(client: $client, mobile: true, cards: $cards)
           }
         `,
         variables: { client: clientId, cards }
-      });
-    }, 100);
+      })
+      .then(res => console.log({ res }))
+      .catch(err => console.log({ err }));
   }
+
   componentWillUnmount() {
     client.mutate({
       mutation: gql`
@@ -142,4 +143,4 @@ class ClientData extends Component {
   }
 }
 
-export default ClientData;
+export default withApollo(ClientData);

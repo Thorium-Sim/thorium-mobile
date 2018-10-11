@@ -6,14 +6,13 @@ export default async function checkServerAddress(address) {
     .replace("https://", "")
     .replace("http://", "")
     .split(":")[0];
-  const prodResponse = await fetch(`http://${cleanAddress}:${PROD_PORT}`)
-    .then(res => res.text())
-    .catch(() => {});
-  const devResponse = await fetch(`http://${cleanAddress}:${DEV_PORT}`)
-    .then(res => res.text())
-    .catch(() => {});
-  if (!prodResponse && !devResponse) {
-    return false;
-  }
-  return { address: cleanAddress, port: prodResponse ? PROD_PORT : DEV_PORT };
+  const test = await fetch(`http://${cleanAddress}:${PROD_PORT}`)
+    .then(() => true)
+    .catch(() => false);
+  if (test) return { address: cleanAddress, port: PROD_PORT };
+
+  const test2 = await fetch(`http://${cleanAddress}:${DEV_PORT}`)
+    .then(() => true)
+    .catch(() => false);
+  return test2 ? { address: cleanAddress, port: DEV_PORT } : false;
 }

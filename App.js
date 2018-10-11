@@ -12,40 +12,88 @@ import Client from "./screens/Client";
 import Connect from "./screens/Connect";
 import checkServerAddress from "./helpers/checkServerAddress";
 import { getClient, clearClient } from "./helpers/graphqlClient";
-export default class App extends React.Component {
+
+class ClientGetter extends React.Component {
   state = {
-    isLoadingComplete: false,
-    connection: null,
-    client: null
+    connection: null
   };
   componentDidMount() {
     this.setConnection();
   }
-  setConnection = async () => {
-    try {
-      const value = await AsyncStorage.getItem("@Thorium:serverAddress");
-      if (value !== null) {
-        const addressPort = await checkServerAddress(value);
-        if (!addressPort) {
+
+  setConnection = (addr, prt) => {
+    if (addr) {
+      return this.createClient(addr, prt);
+    }
+    this.setState({ loading: true });
+    AsyncStorage.getItem("@Thorium:serverAddress")
+      .then(value => {
+        if (value === null) return;
+        return new Promise(resolve => setTimeout(() => resolve(value), 1000));
+      })
+      .then(value => {
+        if (!value) {
+          this.setState({ loading: false });
           return;
         }
-        const { address, port } = addressPort;
-        if (address) {
-          this.client = getClient(address, port);
-          this.setState({ connection: true });
-        } else {
-          clearClient();
-          this.client = null;
-          this.setState({ connection: false });
-          AsyncStorage.removeItem("@Thorium:serverAddress");
-        }
-      }
-    } catch (error) {
-      // Error retrieving data
-    }
+        checkServerAddress(value)
+          .then(addressPort => {
+            if (!addressPort) {
+              return;
+            }
+            const { address, port } = addressPort;
+            if (address) {
+              this.createClient(address, port);
+            } else {
+              clearClient();
+              this.client = null;
+              this.setState({ connection: false, loading: false });
+              AsyncStorage.removeItem("@Thorium:serverAddress");
+            }
+          })
+          .catch(err => console.log("error", err));
+      });
+  };
+  createClient = (address, port) => {
+    this.client = getClient(address, port);
+    this.setState({ connection: true, loading: false });
   };
   render() {
-    const { connection } = this.state;
+    const { connection, loading } = this.state;
+    if (loading)
+      return (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "black"
+          }}
+        >
+          <Text style={{ color: "white", fontSize: 40 }}>
+            Connecting to server...
+          </Text>
+        </View>
+      );
+    return (
+      <View style={styles.container}>
+        {connection ? (
+          <Fragment>
+            {Platform.OS === "ios" && <StatusBar barStyle="default" hidden />}
+            <Client client={this.client} />
+          </Fragment>
+        ) : (
+          <Connect connect={this.setConnection} />
+        )}
+      </View>
+    );
+  }
+}
+export default class App extends React.Component {
+  state = {
+    isLoadingComplete: false
+  };
+  render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
         <AppLoading
@@ -55,33 +103,15 @@ export default class App extends React.Component {
         />
       );
     } else {
-      return (
-        <View style={styles.container}>
-          {connection ? (
-            <Fragment>
-              {Platform.OS === "ios" && <StatusBar barStyle="default" hidden />}
-              <Client client={this.client} />
-            </Fragment>
-          ) : (
-            <Connect connect={this.setConnection} />
-          )}
-        </View>
-      );
+      return <ClientGetter />;
     }
   }
 
   _loadResourcesAsync = async () => {
     return Promise.all([
-      Asset.loadAsync([
-        require("./assets/images/robot-dev.png"),
-        require("./assets/images/robot-prod.png")
-      ]),
       Font.loadAsync({
         // This is the font that we are using for our tab bar
-        ...Icon.Ionicons.font,
-        // We include SpaceMono because we use it in HomeScreen.js. Feel free
-        // to remove this if you are not using it in your app
-        "space-mono": require("./assets/fonts/SpaceMono-Regular.ttf")
+        ...Icon.Ionicons.font
       })
     ]);
   };
@@ -90,6 +120,7 @@ export default class App extends React.Component {
     // In this case, you might want to report the error to your error
     // reporting service, for example Sentry
     console.warn(error);
+    console.log(error);
   };
 
   _handleFinishLoading = () => {

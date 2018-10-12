@@ -5,7 +5,8 @@ import {
   StyleSheet,
   View,
   Text,
-  AsyncStorage
+  AsyncStorage,
+  Button
 } from "react-native";
 import { AppLoading, Asset, Font, Icon } from "expo";
 import Client from "./screens/Client";
@@ -73,6 +74,10 @@ class ClientGetter extends React.Component {
           <Text style={{ color: "white", fontSize: 40 }}>
             Connecting to server...
           </Text>
+          <Button
+            title="Abort"
+            onPress={() => this.setState({ loading: false })}
+          />
         </View>
       );
     return (

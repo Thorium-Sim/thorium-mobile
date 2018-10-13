@@ -14,9 +14,7 @@ export default class LinksScreen extends React.Component {
     this.animate();
     // Play a sound
     try {
-      await this.soundObject.loadAsync(
-        require("../../../assets/sounds/scan.m4a")
-      );
+      await this.soundObject.loadAsync(require("../../assets/sounds/scan.m4a"));
       await this.soundObject.setIsLoopingAsync(true);
       await this.soundObject.playAsync();
       // Your sound is playing!
@@ -52,7 +50,7 @@ export default class LinksScreen extends React.Component {
         "rgba(255,0,0,1)"
       ]
     });
-    console.log(hue);
+
     return <Animated.View style={{ flex: 1, backgroundColor: color }} />;
   }
 }

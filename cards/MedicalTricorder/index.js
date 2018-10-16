@@ -4,7 +4,6 @@ import { Ionicons } from "@expo/vector-icons";
 
 import Scanner from "../Scanner";
 import Sterifield from "./sterifield";
-
 const components = { Scanner, Sterifield };
 
 const Toolbar = ({ items, selectedItem, onChange = () => {} }) => {

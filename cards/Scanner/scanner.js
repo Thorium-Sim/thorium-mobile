@@ -26,6 +26,7 @@ const Input = props => (
       marginHorizontal: 10,
       color: "white",
       borderRadius: 10,
+      borderBottomColor: "transparent",
       ...props.style
     }}
   />
@@ -56,6 +57,48 @@ const Button = props => (
     </Text>
   </TouchableOpacity>
 );
+const Results = ({ scanResults }) => {
+  if (scanResults)
+    return (
+      <View
+        style={{
+          flex: 2,
+          justifyContent: "center",
+          alignItems: "stretch",
+          width: "100%"
+        }}
+      >
+        <Text
+          style={{
+            alignSelf: "flex-start",
+            color: "white",
+            fontSize: 20
+          }}
+        >
+          Results
+        </Text>
+        <ScrollView
+          style={{
+            borderRadius: 10,
+            borderWidth: 2,
+            borderColor: "rgba(255,255,255,0.5)",
+            backgroundColor: "rgba(0,0,0,0.1)",
+            padding: 10
+          }}
+        >
+          <Text
+            style={{
+              color: "white",
+              fontSize: 18
+            }}
+          >
+            {scanResults}
+          </Text>
+        </ScrollView>
+      </View>
+    );
+  return null;
+};
 export default class Scanner extends React.Component {
   state = { data: this.props.scanRequest };
   render() {
@@ -98,7 +141,7 @@ export default class Scanner extends React.Component {
             </Mutation>
           </Fragment>
         ) : (
-          <Fragment>
+          <View style={{ flex: 1, alignItems: "stretch", width: "100%" }}>
             <View
               style={{
                 flex: 1,
@@ -158,45 +201,8 @@ export default class Scanner extends React.Component {
                 </Mutation>
               </View>
             </View>
-            {scanResults && (
-              <View
-                style={{
-                  flex: 2,
-                  justifyContent: "center",
-                  alignItems: "stretch",
-                  width: "100%"
-                }}
-              >
-                <Text
-                  style={{
-                    alignSelf: "flex-start",
-                    color: "white",
-                    fontSize: 20
-                  }}
-                >
-                  Results
-                </Text>
-                <ScrollView
-                  style={{
-                    borderRadius: 10,
-                    borderWidth: 2,
-                    borderColor: "rgba(255,255,255,0.5)",
-                    backgroundColor: "rgba(0,0,0,0.1)",
-                    padding: 10
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "white",
-                      fontSize: 18
-                    }}
-                  >
-                    {scanResults}
-                  </Text>
-                </ScrollView>
-              </View>
-            )}
-          </Fragment>
+            <Results scanResults={scanResults} />
+          </View>
         )}
       </View>
     );

@@ -22,7 +22,6 @@ export function getClient(address, port) {
     if (!address || !port) {
       return false;
     }
-    console.log(`http://${address}:${parseInt(port, 10)}/graphql`);
     const wsLink = new WebSocketLink({
       uri: `ws://${address}:${parseInt(port, 10) + 1}/subscriptions`,
       options: {

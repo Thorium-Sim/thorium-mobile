@@ -5,6 +5,8 @@ import gql from "graphql-tag";
 import SubscriptionHelper from "../helpers/subscriptionHelper";
 import Layout from "./Layout";
 import Card from "./Card";
+import Alert from "../components/Alert";
+
 const queryData = `
 id
 name
@@ -37,6 +39,7 @@ ${queryData}
 const SimulatorData = props => {
   const {
     station: { name },
+    station,
     simulator
   } = props;
   return (
@@ -57,6 +60,8 @@ const SimulatorData = props => {
             }
           >
             <Layout {...data.simulators[0]} />
+            <Alert simulator={data.simulators[0]} station={station} />
+
             <Card {...props} simulator={data.simulators[0]} />
           </SubscriptionHelper>
         )

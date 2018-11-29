@@ -56,7 +56,6 @@ class ClientData extends Component {
         `,
         variables: { client: clientId, cards }
       })
-      .then(res => console.log({ res }))
       .catch(err => console.log({ err }));
   }
 

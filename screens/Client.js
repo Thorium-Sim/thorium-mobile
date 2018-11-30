@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
+import { Animated, View, Text, Dimensions } from "react-native";
 import { getClient } from "../helpers/graphqlClient";
 import { ApolloProvider, Query } from "react-apollo";
 import ErrorBoundary from "../helpers/errorBounardy";
 import Layout from "./Layout";
 import ClientData from "./ClientData";
-
+import deviceDimensions from "../helpers/deviceDimensions";
 export default class Client extends Component {
   render() {
     const { client } = this.props;

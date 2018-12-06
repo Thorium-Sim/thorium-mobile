@@ -17,7 +17,6 @@ import gql from "graphql-tag";
 import { Button, Input } from "../../components";
 
 const TaskEntry = ({ station, tasks }) => {
-  console.log("STATION", station, tasks);
   return (
     <View>
       <Text style={{ fontSize: 24, color: "white" }}>{station}</Text>
@@ -97,16 +96,13 @@ export default class Scanner extends React.Component {
                 Verified Tasks
               </Text>
             </View>
-            {Object.entries(verifiedTasks).map(
-              ([station, tasks]) =>
-                console.log(station, tasks) || (
-                  <TaskEntry
-                    key={`verified-tasks-${station}`}
-                    station={station}
-                    tasks={tasks}
-                  />
-                )
-            )}
+            {Object.entries(verifiedTasks).map(([station, tasks]) => (
+              <TaskEntry
+                key={`verified-tasks-${station}`}
+                station={station}
+                tasks={tasks}
+              />
+            ))}
           </Fragment>
         </ScrollView>
       </View>

@@ -55,8 +55,8 @@ class ClientGetter extends React.Component {
           .catch(err => console.log("error", err));
       });
   };
-  createClient = (address, port) => {
-    this.client = getClient(address, port);
+  createClient = async (address, port) => {
+    this.client = await getClient(address, port);
     this.setState({ connection: true, loading: false });
   };
   render() {

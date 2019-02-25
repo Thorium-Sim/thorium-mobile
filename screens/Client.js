@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Animated, View, Text, Dimensions } from "react-native";
-import { getClient } from "../helpers/graphqlClient";
 import { ApolloProvider, Query } from "react-apollo";
 import ErrorBoundary from "../helpers/errorBounardy";
 import Layout from "./Layout";

@@ -14,7 +14,7 @@ let client;
 export function clearClient() {
   client = null;
 }
-export function getClient(address, port) {
+export async function getClient(address, port) {
   try {
     if (client) {
       return client;
@@ -22,8 +22,18 @@ export function getClient(address, port) {
     if (!address || !port) {
       return false;
     }
+    const WS_PORT = await fetch(`http://${address}:${parseInt(port, 10) + 1}`)
+      .then(res => {
+        if (res.status === 404) return parseInt(port, 10) + 1;
+        return parseInt(port, 10);
+      })
+      .catch(() => {
+        return parseInt(port, 10);
+      });
     const wsLink = new WebSocketLink({
-      uri: `ws://${address}:${parseInt(port, 10) + 1}/subscriptions`,
+      uri: `ws://${address}:${WS_PORT}/${
+        WS_PORT === parseInt(port, 10) ? "graphql" : "subscriptions"
+      }`,
       options: {
         reconnect: true
       },

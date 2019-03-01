@@ -36,10 +36,7 @@ export default class Connect extends Component {
         if (saveAddress) {
           AsyncStorage.setItem("@Thorium:serverAddress", otherAddress);
         }
-        this.props.connect(
-          otherAddress,
-          port
-        );
+        this.props.connect(otherAddress, port);
       })
       .catch(err => {
         console.log("I caught an error.");
@@ -168,6 +165,19 @@ export default class Connect extends Component {
                     </Text>
                   </TouchableOpacity>
                 )}
+                <Text
+                  style={{
+                    marginTop: 50,
+                    marginRight: 20,
+                    marginLeft: 20,
+                    fontSize: 20,
+                    color: "white",
+                    textAlign: "center"
+                  }}
+                >
+                  Contestant on the BYU's Rollins Center for Entrepreneurship
+                  and Technology App Competition
+                </Text>
               </View>
             </View>
           )}

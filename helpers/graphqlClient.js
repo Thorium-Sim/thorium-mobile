@@ -8,7 +8,7 @@ import { Hermes } from "apollo-cache-hermes";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
 import { Constants } from "expo";
-const clientId = Constants.deviceName;
+const clientId = Constants.deviceId;
 
 let client;
 export function clearClient() {

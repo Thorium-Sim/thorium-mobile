@@ -39,7 +39,7 @@ class RemoteAccess extends Component {
                 setKeypadEnteredCode(id: $id, code: $code)
               }
             `,
-            variables: { id: Constants.deviceName, code: enteredNums }
+            variables: { id: Constants.deviceId, code: enteredNums }
           });
           this.setState({
             enteredNums: []

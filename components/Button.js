@@ -5,6 +5,7 @@ const Button = props => (
   <TouchableOpacity
     {...props}
     style={{
+      alignSelf: "flex-start",
       backgroundColor: props.disabled
         ? "rgba(0, 0, 0, 0.8)"
         : "rgba(0,0,0,0.1)",

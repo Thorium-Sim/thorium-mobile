@@ -8,7 +8,7 @@ import SimulatorData from "./SimulatorData";
 import * as allCards from "../cards";
 
 const cards = Object.keys(allCards);
-const clientId = Constants.deviceName;
+const clientId = Constants.deviceId;
 
 const queryData = `
 id
@@ -50,11 +50,20 @@ class ClientData extends Component {
     client
       .mutate({
         mutation: gql`
-          mutation RegisterClient($client: ID!, $cards: [String]) {
-            clientConnect(client: $client, mobile: true, cards: $cards)
+          mutation RegisterClient(
+            $client: ID!
+            $label: String
+            $cards: [String]
+          ) {
+            clientConnect(
+              client: $client
+              label: $label
+              mobile: true
+              cards: $cards
+            )
           }
         `,
-        variables: { client: clientId, cards }
+        variables: { client: clientId, label: Constants.deviceName, cards }
       })
       .catch(err => console.log({ err }));
   }
@@ -113,7 +122,14 @@ class ClientData extends Component {
                       color: "white"
                     }}
                   >
-                    ClientId: {Constants.deviceName}
+                    ClientId: {Constants.deviceId}
+                  </Text>
+                  <Text
+                    style={{
+                      color: "white"
+                    }}
+                  >
+                    Client Name: {Constants.deviceName}
                   </Text>
                   <Text
                     style={{

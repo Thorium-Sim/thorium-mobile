@@ -32,7 +32,7 @@ class ScannerData extends Component {
   state = {};
   render() {
     return (
-      <Query query={QUERY} variables={{ client: Constants.deviceName }}>
+      <Query query={QUERY} variables={{ client: Constants.deviceId }}>
         {({ loading, data, subscribeToMore, error }) => {
           if (error)
             return (
@@ -52,7 +52,7 @@ class ScannerData extends Component {
               subscribe={() =>
                 subscribeToMore({
                   document: SUBSCRIPTION,
-                  variables: { client: Constants.deviceName },
+                  variables: { client: Constants.deviceId },
                   updateQuery: (previousResult, { subscriptionData }) => {
                     return Object.assign({}, previousResult, {
                       scanner: subscriptionData.data.scannerUpdate

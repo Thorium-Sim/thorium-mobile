@@ -45,7 +45,7 @@ class KeypadData extends Component {
               subscribe={() =>
                 subscribeToMore({
                   document: SUBSCRIPTION,
-                  variables: { client: Constants.deviceName },
+                  variables: { client: Constants.deviceId },
                   updateQuery: (previousResult, { subscriptionData }) => {
                     return Object.assign({}, previousResult, {
                       keypad: subscriptionData.data.keypadUpdate

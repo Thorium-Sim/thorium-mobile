@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
-import { View, Text } from "react-native";
-import { Constants } from "expo";
+import { Text } from "react-native";
 import gql from "graphql-tag";
 import SubscriptionHelper from "../../helpers/subscriptionHelper";
 import Tasks from "./tasks";

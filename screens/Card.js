@@ -37,8 +37,17 @@ class Card extends React.Component {
   render() {
     // Assume that the station name is the name of the card
     const { fadeAnim, orientation } = this.state;
-    const Comp = Cards[this.props.station.name];
-    if (!Comp)
+    let Comp = Cards[this.props.station.name];
+    if (this.props.station.name.indexOf("interface-id:") > -1) {
+      Comp = props => (
+        <Cards.Interfaces
+          {...props}
+          interfaceId={this.props.station.name.replace("interface-id:", "")}
+        />
+      );
+    }
+
+    if (!Comp) {
       return (
         <View style={{ justifyContent: "center", alignItems: "center" }}>
           <Text style={{ color: "white", fontSize: 40 }}>
@@ -46,8 +55,7 @@ class Card extends React.Component {
           </Text>
         </View>
       );
-    const { height, width } = Dimensions.get("window");
-    console.log(orientation);
+    }
     return (
       <Animated.View style={{ flex: 1, opacity: fadeAnim }}>
         <View
@@ -56,8 +64,6 @@ class Card extends React.Component {
             transform: [
               { rotate: orientation === "landscape" ? "90deg" : "0deg" }
             ]
-            //  height,
-            // width
           }}
         >
           <Comp {...this.props} />

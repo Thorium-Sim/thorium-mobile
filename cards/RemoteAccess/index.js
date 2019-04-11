@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { View, Text, Alert } from "react-native";
+import { View, Text } from "react-native";
 
 import { Mutation } from "react-apollo";
-import { Constants } from "expo";
 import gql from "graphql-tag";
 
 import { Button, Input } from "../../components";

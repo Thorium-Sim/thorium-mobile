@@ -17,6 +17,17 @@ import {
 import { WebBrowser } from "expo";
 import checkServerAddress from "../helpers/checkServerAddress";
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "transparent",
+    padding: 20
+  },
+  contentContainer: {
+    marginTop: 90
+  }
+});
+
 export default class Connect extends Component {
   state = { address: "", saveAddress: true, checking: false };
   checkAddress = async () => {
@@ -186,13 +197,3 @@ export default class Connect extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "transparent"
-  },
-  contentContainer: {
-    marginTop: 90
-  }
-});

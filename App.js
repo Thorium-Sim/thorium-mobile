@@ -14,6 +14,7 @@ import Connect from "./screens/Connect";
 import checkServerAddress from "./helpers/checkServerAddress";
 import { getClient, clearClient } from "./helpers/graphqlClient";
 
+export const ThoriumAddressContext = React.createContext();
 class ClientGetter extends React.Component {
   state = {
     connection: null
@@ -57,10 +58,10 @@ class ClientGetter extends React.Component {
   };
   createClient = async (address, port) => {
     this.client = await getClient(address, port);
-    this.setState({ connection: true, loading: false });
+    this.setState({ connection: true, loading: false, address, port });
   };
   render() {
-    const { connection, loading } = this.state;
+    const { connection, loading, address, port } = this.state;
     if (loading)
       return (
         <View
@@ -85,7 +86,9 @@ class ClientGetter extends React.Component {
         {connection ? (
           <Fragment>
             {Platform.OS === "ios" && <StatusBar barStyle="default" hidden />}
-            <Client client={this.client} />
+            <ThoriumAddressContext.Provider value={{ address, port }}>
+              <Client client={this.client} />
+            </ThoriumAddressContext.Provider>
           </Fragment>
         ) : (
           <Connect connect={this.setConnection} />

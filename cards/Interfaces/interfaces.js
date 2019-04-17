@@ -16,10 +16,11 @@ function parseComponents({ components, config, values }) {
 class Interfaces extends Component {
   render() {
     const { iFace } = this.props;
-    const { width, height } = iFace.deviceType;
     const { height: deviceHeight, width: deviceWidth } = Dimensions.get(
       "window"
     );
+    const { width = deviceWidth, height = deviceHeight } =
+      iFace.deviceType || {};
     const widthMultiply = deviceWidth / width;
     const heightMultiply = deviceHeight / height;
     const components = parseComponents(iFace);
@@ -38,6 +39,7 @@ class Interfaces extends Component {
             <View
               key={c.id}
               style={{
+                position: "absolute",
                 top: c.position.y * heightMultiply,
                 left: c.position.x * widthMultiply
               }}

@@ -5,8 +5,6 @@ import { Image, TouchableOpacity } from "react-native";
 import { ThoriumAddressContext } from "../../../App";
 
 export const CompImage = ({ id, interfaceId, config }) => {
-  console.log(config.src);
-
   return (
     <Mutation
       mutation={gql`

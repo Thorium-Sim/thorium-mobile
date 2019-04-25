@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Query } from "react-apollo";
 import { Constants } from "expo";
 import gql from "graphql-tag";
+import { Text } from "react-native";
 import SubscriptionHelper from "../../helpers/subscriptionHelper";
 import Keypad from "./keypad";
 
@@ -39,7 +40,7 @@ class KeypadData extends Component {
         {({ loading, data, subscribeToMore }) => {
           const { keypad } = data;
           if (loading) return null;
-          if (!keypad) return <div>No Keypad</div>;
+          if (!keypad) return <Text style={{ color: "white" }}>No Keypad</Text>;
           return (
             <SubscriptionHelper
               subscribe={() =>

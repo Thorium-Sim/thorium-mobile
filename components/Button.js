@@ -1,13 +1,6 @@
 import React from "react";
 import { TouchableOpacity, Text } from "react-native";
 
-// $alert5: #2ba1cb;
-// $alert4: #36c236;
-// $alert3: #acac34;
-// $alert2: #cc7926;
-// $alert1: #ca2a2a;
-// $alertp: #7a24cf;
-
 const colorStyle = ({ color, disabled }) => {
   if (disabled) {
     return {

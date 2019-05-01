@@ -20,16 +20,18 @@ export const CompImage = ({ id, interfaceId, config }) => {
         >
           <ThoriumAddressContext.Consumer>
             {({ address, port }) => (
-              <Image
-                style={{
-                  width: parseFloat(config.width) || 50,
-                  height: parseFloat(config.height),
-                  resizeMode: "stretch"
-                }}
-                source={{
-                  uri: `http://${address}:${port}/assets${config.src}`
-                }}
-              />
+              <React.Fragment>
+                <Image
+                  style={{
+                    width: parseFloat(config.width) || 50,
+                    height: parseFloat(config.height) || 50,
+                    resizeMode: "stretch"
+                  }}
+                  source={{
+                    uri: `http://${address}:${port - 1}/assets${config.src}`
+                  }}
+                />
+              </React.Fragment>
             )}
           </ThoriumAddressContext.Consumer>
         </TouchableOpacity>

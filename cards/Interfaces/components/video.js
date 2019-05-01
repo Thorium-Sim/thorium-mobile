@@ -39,7 +39,7 @@ export class CompVideo extends Component {
                 <Video
                   ref={this.videoRef}
                   source={{
-                    uri: `http://${address}:${port}/assets${config.src}`
+                    uri: `http://${address}:${port - 1}/assets${config.src}`
                   }}
                   rate={1.0}
                   volume={0}

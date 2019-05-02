@@ -15,7 +15,7 @@ export const CompButton = ({ id, interfaceId, config }) => {
     >
       {action => (
         <Button onPress={() => action()} color={config.color}>
-          {config.objectLabel}
+          {config.label || config.objectLabel}
         </Button>
       )}
     </Mutation>

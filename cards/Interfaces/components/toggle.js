@@ -44,8 +44,8 @@ export const Toggle = ({ id, interfaceId, config, value = {} }) => {
               )}
             </Svg>
           </TouchableOpacity>
-          {config.objectLabel && (
-            <Text style={{ color: "white" }}>{config.objectLabel}</Text>
+          {config.label && (
+            <Text style={{ color: "white" }}>{config.label}</Text>
           )}
         </View>
       )}

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
 import { View, Text } from "react-native";
-import { Constants } from "expo";
+import Constants from "expo-constants";
 import gql from "graphql-tag";
 import SubscriptionHelper from "../../helpers/subscriptionHelper";
 import Scanner from "./scanner";
@@ -41,8 +41,8 @@ class ScannerData extends Component {
                 Server 1.0.19?
               </Text>
             );
+          if (loading || !data) return null;
           const { scanner } = data;
-          if (loading) return null;
           if (!scanner)
             return (
               <Text style={{ color: "white", fontSize: 40 }}>No Scanner</Text>

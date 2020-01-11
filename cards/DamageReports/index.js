@@ -25,8 +25,8 @@ type
 `;
 
 const QUERY = gql`
-  query Systems($simulatorId: ID!, $simId: String, $which:String) {
-    simulators(id: $simId) {
+  query Systems($simulatorId: ID!,  $which:String) {
+    simulators(id: $simulatorId) {
       id
       stepDamage
       verifyStep
@@ -73,13 +73,12 @@ class DamageControlData extends Component {
         query={QUERY}
         variables={{
           simulatorId: this.props.simulator.id,
-          simId: this.props.simulator.id,
           which: this.props.which || "default"
         }}
       >
-        {({ loading, data, subscribeToMore }) => {
+        {({ loading, data, error, subscribeToMore }) => {
+          if (loading || !data) return null;
           const { systems, simulators } = data;
-          if (loading || !systems || !simulators) return null;
           const [simulator] = simulators;
           return (
             <SubscriptionHelper

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text } from "react-native";
-import { Constants } from "expo";
+import Constants from "expo-constants";
 import { Query, withApollo } from "react-apollo";
 import gql from "graphql-tag";
 import SubscriptionHelper from "../helpers/subscriptionHelper";
@@ -82,8 +82,8 @@ class ClientData extends Component {
     return (
       <Query query={QUERY} variables={{ clientId }}>
         {({ loading, data, subscribeToMore }) => {
+          if (loading || !data) return null;
           const { clients } = data;
-          if (loading || !clients) return null;
           const client = clients[0];
           return (
             <SubscriptionHelper

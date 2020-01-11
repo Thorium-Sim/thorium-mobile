@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  ScrollView
+} from "react-native";
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import SubscriptionHelper from "../../helpers/subscriptionHelper";
@@ -29,7 +35,7 @@ currentTimelineStep
 `;
 
 const QUERY = gql`
-  query Simulators($simId: String) {
+  query Simulators($simId: ID!) {
     simulators(id: $simId) {
       ${queryData}
     }
@@ -134,29 +140,31 @@ const MissionView = ({ id, mission, currentTimelineStep }) => {
           ? `Step ${currentTimelineStep + 1}: ${currentStep.name}`
           : "End of timeline."}
       </Text>
-      {currentStep && (
+      {currentStep ? (
         <Text style={{ color: "white", fontSize: 18, margin: 5 }}>
           {currentStep.description}
         </Text>
-      )}
+      ) : null}
       <View style={{ width: "100%", flex: 1 }}>
         {currentStep && (
           <React.Fragment>
             <Text style={{ color: "white", fontSize: 24, margin: 10 }}>
               Actions
             </Text>
-            {currentStep.timelineItems.map(t => (
-              <Text
-                key={t.id}
-                style={{ color: "white", fontSize: 18, margin: 5 }}
-              >
-                <EventName id={t.event} label={t.event} />
-              </Text>
-            ))}
+            <ScrollView>
+              {currentStep.timelineItems.map(t => (
+                <Text
+                  key={t.id}
+                  style={{ color: "white", fontSize: 18, margin: 5 }}
+                >
+                  <EventName id={t.event} label={t.event} />
+                </Text>
+              ))}
+            </ScrollView>
           </React.Fragment>
         )}
       </View>
-      }
+
       <Mutation
         mutation={gql`
           mutation UpdateTimelineStep($simulatorId: ID!, $step: Int!) {
@@ -291,8 +299,8 @@ class TimelineData extends Component {
         }}
       >
         {({ loading, data, subscribeToMore }) => {
+          if (loading || !data) return null;
           const { simulators, missions } = data;
-          if (loading || !simulators || !missions) return null;
           const [simulator] = simulators;
           return (
             <SubscriptionHelper

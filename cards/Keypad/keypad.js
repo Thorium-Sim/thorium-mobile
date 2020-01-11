@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, Alert } from "react-native";
-import { Constants } from "expo";
+import Constants from 'expo-constants';
 import { withApollo } from "react-apollo";
 import gql from "graphql-tag";
 import NumberButton from "./numberButton";

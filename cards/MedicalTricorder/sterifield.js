@@ -1,7 +1,6 @@
 import React from "react";
-import { ScrollView, View, StyleSheet, Animated, Easing } from "react-native";
-import { Audio } from "expo";
-import { ExpoLinksView } from "@expo/samples";
+import { StyleSheet, Animated, Easing } from "react-native";
+import { Audio } from 'expo-av';
 
 export default class LinksScreen extends React.Component {
   static navigationOptions = {

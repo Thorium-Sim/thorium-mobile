@@ -1,25 +1,26 @@
 import React, { Component } from "react";
+import { View, Text } from "react-native";
 export default class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
     this.state = { error: null, errorInfo: null };
   }
 
-  componentDidCatch(error, errorInfo) {
-    // Catch errors in any components below and re-render with error message
-    this.setState({
-      error: error,
-      errorInfo: errorInfo
-    });
-    // You can also log error messages to an error reporting service here
+  static getDerivedStateFromError(error, errorInfo) {
+    // Update state so the next render will show the fallback UI.
+    console.log(error, errorInfo);
+    return { hasError: true, error, errorInfo };
   }
+
   render() {
-    if (this.state.errorInfo) {
+    if (this.state.hasError) {
       // Error path
       if (this.props.render) return this.props.render;
       return (
-        <View style={{ flex: 1, alignItems: "center" }}>
-          <Text style={{ size: 40, color: "white" }}>
+        <View
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        >
+          <Text style={{ fontSize: 40, color: "white" }}>
             Error in Thorium client.
           </Text>
           <Text style={{ color: "white" }}>

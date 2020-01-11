@@ -42,8 +42,8 @@ class TasksData extends Component {
                 latest Thorium Server?
               </Text>
             );
+          if (loading || !data) return null;
           const { tasks = [] } = data;
-          if (loading) return null;
           return (
             <SubscriptionHelper
               subscribe={() =>

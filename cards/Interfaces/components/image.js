@@ -2,7 +2,7 @@ import React from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { Image, TouchableOpacity, View, Text } from "react-native";
-import { ThoriumAddressContext } from "../../../App";
+import { ThoriumAddressContext } from "../../../helpers/ThoriumAddressContext";
 
 export const CompImage = ({ id, interfaceId, config }) => {
   return (

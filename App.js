@@ -8,13 +8,14 @@ import {
   AsyncStorage,
   Button
 } from "react-native";
-import { AppLoading, Asset, Font, Icon } from "expo";
+import { AppLoading } from "expo";
+import * as Icon from "@expo/vector-icons";
+import * as Font from "expo-font";
 import Client from "./screens/Client";
 import Connect from "./screens/Connect";
 import checkServerAddress from "./helpers/checkServerAddress";
 import { getClient, clearClient } from "./helpers/graphqlClient";
-
-export const ThoriumAddressContext = React.createContext();
+import ThoriumAddressContext from "./helpers/ThoriumAddressContext";
 class ClientGetter extends React.Component {
   state = {
     connection: null

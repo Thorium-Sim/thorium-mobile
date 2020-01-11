@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import { Video } from "expo";
+import { Video } from "expo-av";
 import { TouchableOpacity, Text, View } from "react-native";
-import { ThoriumAddressContext } from "../../../App";
+import { ThoriumAddressContext } from "../../../helpers/ThoriumAddressContext";
 
 export class CompVideo extends Component {
   videoRef = React.createRef();

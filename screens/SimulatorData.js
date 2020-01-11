@@ -22,7 +22,7 @@ assets {
 `;
 
 const QUERY = gql`
-  query Simulator($simulatorId: String!) {
+  query Simulator($simulatorId: ID!) {
     simulators(id: $simulatorId) {
 ${queryData}
     }
@@ -45,7 +45,7 @@ const SimulatorData = props => {
   return (
     <Query query={QUERY} variables={{ simulatorId: simulator.id }}>
       {({ loading, data, subscribeToMore }) =>
-        loading || !data.simulators ? null : (
+        loading || !data ? null : (
           <SubscriptionHelper
             subscribe={() =>
               subscribeToMore({

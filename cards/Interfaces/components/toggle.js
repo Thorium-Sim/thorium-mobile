@@ -2,7 +2,7 @@ import React from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { TouchableOpacity, View, Text } from "react-native";
-import { Svg } from "expo";
+import * as Svg from 'react-native-svg';
 
 export const Toggle = ({ id, interfaceId, config, value = {} }) => {
   return (

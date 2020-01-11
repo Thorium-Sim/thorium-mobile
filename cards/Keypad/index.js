@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
-import { Constants } from "expo";
+import Constants from "expo-constants";
 import gql from "graphql-tag";
 import { Text } from "react-native";
 import SubscriptionHelper from "../../helpers/subscriptionHelper";
@@ -36,10 +36,10 @@ class KeypadData extends Component {
   state = {};
   render() {
     return (
-      <Query query={QUERY} variables={{ client: Constants.deviceName }}>
+      <Query query={QUERY} variables={{ client: Constants.deviceId }}>
         {({ loading, data, subscribeToMore }) => {
+          if (loading || !data) return null;
           const { keypad } = data;
-          if (loading) return null;
           if (!keypad) return <Text style={{ color: "white" }}>No Keypad</Text>;
           return (
             <SubscriptionHelper

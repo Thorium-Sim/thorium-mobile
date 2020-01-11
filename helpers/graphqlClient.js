@@ -7,7 +7,7 @@ import { WebSocketLink } from "apollo-link-ws";
 import { Hermes } from "apollo-cache-hermes";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
-import { Constants } from "expo";
+import Constants from 'expo-constants';
 const clientId = Constants.deviceId;
 
 let client;

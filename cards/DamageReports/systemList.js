@@ -41,7 +41,7 @@ class MultiSelectList extends React.PureComponent {
   );
 
   render() {
-    const { systems, selectedSystem } = this.props;
+    const { systems, selectedSystem, which } = this.props;
     const filteredSystems = systems
       .filter(s => s.damage.damaged)
       .map(s => ({
@@ -85,7 +85,12 @@ class MultiSelectList extends React.PureComponent {
               fontSize: 30
             }}
           >
-            Damaged Systems
+            {which === "rnd"
+              ? "R&D"
+              : which === "engineering"
+              ? "Engineering"
+              : "Damage"}{" "}
+            Reports
           </Text>
         </View>
         <FlatList

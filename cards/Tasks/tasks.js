@@ -15,23 +15,62 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 
 import { Button, Input } from "../../components";
+import { Duration } from "luxon";
+
+function getElapsed(time) {
+  return Object.entries(
+    Duration.fromObject({
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      milliseconds: Math.round(time)
+    })
+      .normalize()
+      .toObject()
+  )
+    .filter(t => t[0] !== "milliseconds")
+    .map(t => t[1].toString().padStart(2, 0))
+    .join(":");
+}
 
 const TaskEntry = ({ station, tasks }) => {
   return (
     <View>
       <Text style={{ fontSize: 24, color: "white" }}>{station}</Text>
-      {tasks.map(t => (
-        <View key={t.id} style={{ marginLeft: 20, marginBottom: 20 }}>
-          <Text style={{ fontSize: 18, color: "white" }}>
-            <Text style={{ fontSize: 24, lineHeight: 0 }}>·</Text>{" "}
-            {t.values.name || t.definition}: {t.instructions}
-          </Text>
-        </View>
-      ))}
+      {tasks
+        .concat()
+        .sort((a, b) => {
+          if (a.timeElapsedInMS < b.timeElapsedInMS) return 1;
+          if (a.timeElapsedInMS > b.timeElapsedInMS) return -1;
+          return 0;
+        })
+        .map(t => (
+          <View
+            key={t.id}
+            style={{ marginLeft: 20, marginBottom: 20, flexDirection: "row" }}
+          >
+            <Text style={{ color: "white", fontSize: 24, lineHeight: 0 }}>
+              ·
+            </Text>
+            <View style={{ paddingLeft: 5 }}>
+              <Text style={{ fontSize: 24, color: "white" }}>
+                {t.values.name || t.definition}
+              </Text>
+              <Text
+                style={{ color: "white", fontSize: 16, marginVertical: 10 }}
+              >
+                Time Elapsed: {getElapsed(t.timeElapsedInMS)}
+              </Text>
+              <Text style={{ color: "white", fontSize: 18 }}>
+                {t.instructions}
+              </Text>
+            </View>
+          </View>
+        ))}
     </View>
   );
 };
-export default class Scanner extends React.Component {
+export default class Tasks extends React.Component {
   render() {
     const { id, tasks } = this.props;
     const separatedTasks = tasks

@@ -12,6 +12,7 @@ station
 verified
 definition
 instructions
+timeElapsedInMS
 `;
 
 const QUERY = gql`

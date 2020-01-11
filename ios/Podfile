@@ -47,4 +47,6 @@ target 'thoriummobile' do
 
   pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
 
+  pod 'react-native-zeroconf', :path => '../node_modules/react-native-zeroconf'
+
 end

@@ -8,123 +8,95 @@ import {
   Button
 } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
-import * as Icon from "@expo/vector-icons";
-import * as Font from "expo-font";
 import Client from "./screens/Client";
 import Connect from "./screens/Connect";
 import checkServerAddress from "./helpers/checkServerAddress";
 import { getClient, clearClient } from "./helpers/graphqlClient";
 import ThoriumAddressContext from "./helpers/ThoriumAddressContext";
-class ClientGetter extends React.Component {
-  state = {
-    connection: null
-  };
-  componentDidMount() {
-    this.setConnection();
-  }
+import useZeroconf from "./helpers/useZeroconf";
 
-  setConnection = (addr, prt) => {
+const timeout = time =>
+  new Promise(resolve => setTimeout(() => resolve(), time));
+
+const App = () => {
+  const [connection, setConnection] = React.useState(null);
+  const [address, setAddress] = React.useState(null);
+  const [port, setPort] = React.useState(null);
+  const [client, setClient] = React.useState(null);
+  const [loading, setLoading] = React.useState(null);
+
+  const zeroConfServers = useZeroconf();
+
+  React.useEffect(() => {
+    setConnection();
+  }, []);
+
+  const createConnection = async (addr, prt) => {
     if (addr) {
-      return this.createClient(addr, prt);
+      return createClient(addr, prt);
     }
-    this.setState({ loading: true });
-    AsyncStorage.getItem("@Thorium:serverAddress")
-      .then(value => {
-        if (value === null) return;
-        return new Promise(resolve => setTimeout(() => resolve(value), 1000));
-      })
-      .then(value => {
-        if (!value) {
-          this.setState({ loading: false });
-          return;
-        }
-        checkServerAddress(value)
-          .then(addressPort => {
-            if (!addressPort) {
-              return;
-            }
-            const { address, port } = addressPort;
-            if (address) {
-              this.createClient(address, port);
-            } else {
-              clearClient();
-              this.client = null;
-              this.setState({ connection: false, loading: false });
-              AsyncStorage.removeItem("@Thorium:serverAddress");
-            }
-          })
-          .catch(err => console.log("error", err));
-      });
+    setLoading(true);
+    const value = await AsyncStorage.getItem("@Thorium:serverAddress");
+    if (!value) {
+      setLoading(false);
+      return;
+    }
+    const addressPort = await checkServerAddress(value);
+    if (!addressPort) {
+      setLoading(false);
+      return;
+    }
+    const { address, port } = addressPort;
+    if (address) {
+      createClient(address, port);
+    } else {
+      clearClient();
+      setClient(null);
+      setConnection(false);
+      setLoading(false);
+      AsyncStorage.removeItem("@Thorium:serverAddress");
+    }
   };
-  createClient = async (address, port) => {
-    this.client = await getClient(address, port);
-    this.setState({ connection: true, loading: false, address, port });
+  const createClient = async (address, port) => {
+    const client = await getClient(address, port);
+    setClient(client);
+    setAddress(address);
+    setPort(port);
+    setConnection(true);
   };
-  render() {
-    const { connection, loading, address, port } = this.state;
-    if (loading)
-      return (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "black"
-          }}
-        >
-          <Text style={{ color: "white", fontSize: 40 }}>
-            Connecting to server...
-          </Text>
-          <Button
-            title="Abort"
-            onPress={() => this.setState({ loading: false })}
-          />
-        </View>
-      );
+  if (loading)
     return (
-      <View style={styles.container}>
-        {connection ? (
-          <Fragment>
-            {Platform.OS === "ios" && <StatusBar barStyle="default" hidden />}
-            <ThoriumAddressContext.Provider value={{ address, port }}>
-              <Client client={this.client} />
-            </ThoriumAddressContext.Provider>
-          </Fragment>
-        ) : (
-          <Connect connect={this.setConnection} />
-        )}
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "black"
+        }}
+      >
+        <Text style={{ color: "white", fontSize: 40 }}>
+          Connecting to server...
+        </Text>
+        <Button title="Abort" onPress={() => setLoading(false)} />
       </View>
     );
-  }
-}
-export default class App extends React.Component {
-  state = {
-    isLoadingComplete: false
-  };
-  render() {
-    return <ClientGetter />;
-  }
+  return (
+    <View style={styles.container}>
+      {connection ? (
+        <Fragment>
+          {Platform.OS === "ios" && <StatusBar barStyle="default" hidden />}
+          <ThoriumAddressContext.Provider value={{ address, port }}>
+            <Client client={client} />
+          </ThoriumAddressContext.Provider>
+        </Fragment>
+      ) : (
+        <Connect connect={createConnection} />
+      )}
+    </View>
+  );
+};
 
-  _loadResourcesAsync = async () => {
-    return Promise.all([
-      Font.loadAsync({
-        // This is the font that we are using for our tab bar
-        ...Icon.Ionicons.font
-      })
-    ]);
-  };
-
-  _handleLoadingError = error => {
-    // In this case, you might want to report the error to your error
-    // reporting service, for example Sentry
-    console.warn(error);
-    console.log(error);
-  };
-
-  _handleFinishLoading = () => {
-    this.setState({ isLoadingComplete: true });
-  };
-}
+export default App;
 
 const styles = StyleSheet.create({
   container: {

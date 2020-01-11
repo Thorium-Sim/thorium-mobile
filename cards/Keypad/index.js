@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
-import Constants from "expo-constants";
+import { getUniqueId } from "react-native-device-info";
 import gql from "graphql-tag";
 import { Text } from "react-native";
 import SubscriptionHelper from "../../helpers/subscriptionHelper";
@@ -36,7 +36,7 @@ class KeypadData extends Component {
   state = {};
   render() {
     return (
-      <Query query={QUERY} variables={{ client: Constants.deviceId }}>
+      <Query query={QUERY} variables={{ client: getUniqueId() }}>
         {({ loading, data, subscribeToMore }) => {
           if (loading || !data) return null;
           const { keypad } = data;
@@ -46,7 +46,7 @@ class KeypadData extends Component {
               subscribe={() =>
                 subscribeToMore({
                   document: SUBSCRIPTION,
-                  variables: { client: Constants.deviceId },
+                  variables: { client: getUniqueId() },
                   updateQuery: (previousResult, { subscriptionData }) => {
                     return Object.assign({}, previousResult, {
                       keypad: subscriptionData.data.keypadUpdate

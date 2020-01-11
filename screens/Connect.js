@@ -11,10 +11,11 @@ import {
   StyleSheet,
   Button,
   Switch,
-  TouchableOpacity,
-  AsyncStorage
+  TouchableOpacity
 } from "react-native";
-import * as WebBrowser from 'expo-web-browser';
+import AsyncStorage from "@react-native-community/async-storage";
+
+import * as WebBrowser from "expo-web-browser";
 import checkServerAddress from "../helpers/checkServerAddress";
 
 const styles = StyleSheet.create({

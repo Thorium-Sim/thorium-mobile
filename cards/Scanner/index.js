@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
 import { View, Text } from "react-native";
-import Constants from "expo-constants";
+import { getUniqueId } from "react-native-device-info";
 import gql from "graphql-tag";
 import SubscriptionHelper from "../../helpers/subscriptionHelper";
 import Scanner from "./scanner";
@@ -32,7 +32,7 @@ class ScannerData extends Component {
   state = {};
   render() {
     return (
-      <Query query={QUERY} variables={{ client: Constants.deviceId }}>
+      <Query query={QUERY} variables={{ client: getUniqueId() }}>
         {({ loading, data, subscribeToMore, error }) => {
           if (error)
             return (
@@ -52,7 +52,7 @@ class ScannerData extends Component {
               subscribe={() =>
                 subscribeToMore({
                   document: SUBSCRIPTION,
-                  variables: { client: Constants.deviceId },
+                  variables: { client: getUniqueId() },
                   updateQuery: (previousResult, { subscriptionData }) => {
                     return Object.assign({}, previousResult, {
                       scanner: subscriptionData.data.scannerUpdate

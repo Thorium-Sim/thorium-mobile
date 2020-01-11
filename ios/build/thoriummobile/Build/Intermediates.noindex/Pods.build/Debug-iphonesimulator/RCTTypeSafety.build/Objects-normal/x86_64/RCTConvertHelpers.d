@@ -1,0 +1,29 @@
+dependencies: \
+  /Users/raanderson/Projects/thorium-mobile/node_modules/react-native/Libraries/TypeSafety/RCTConvertHelpers.mm \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Target\ Support\ Files/RCTTypeSafety/RCTTypeSafety-prefix.pch \
+  /Users/raanderson/Projects/thorium-mobile/node_modules/react-native/Libraries/TypeSafety/RCTConvertHelpers.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/FBLazyVector/FBLazyVector/FBLazyVector.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/FBLazyVector/FBLazyVector/FBLazyIterator.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Folly/folly/Optional.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Folly/folly/Portability.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Folly/folly/portability/Config.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Folly/folly/CPortability.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Folly/folly/Traits.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Folly/folly/Utility.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Folly/folly/lang/Exception.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Folly/folly/CppAttributes.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTConvert.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTAnimationType.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTBorderStyle.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTDefines.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTInspectorDevServerHelper.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTPackagerConnection.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTLog.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTAssert.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTUtils.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTPointerEvents.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTTextDecorationLineType.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/Yoga/yoga/Yoga.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/Yoga/yoga/YGEnums.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/Yoga/yoga/YGMacros.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/Yoga/yoga/YGValue.h

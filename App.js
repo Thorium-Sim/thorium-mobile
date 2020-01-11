@@ -5,10 +5,9 @@ import {
   StyleSheet,
   View,
   Text,
-  AsyncStorage,
   Button
 } from "react-native";
-import { AppLoading } from "expo";
+import AsyncStorage from "@react-native-community/async-storage";
 import * as Icon from "@expo/vector-icons";
 import * as Font from "expo-font";
 import Client from "./screens/Client";
@@ -103,17 +102,7 @@ export default class App extends React.Component {
     isLoadingComplete: false
   };
   render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
-      return (
-        <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
-        />
-      );
-    } else {
-      return <ClientGetter />;
-    }
+    return <ClientGetter />;
   }
 
   _loadResourcesAsync = async () => {

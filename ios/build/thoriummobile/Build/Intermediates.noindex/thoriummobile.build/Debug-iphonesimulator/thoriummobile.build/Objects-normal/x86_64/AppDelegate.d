@@ -1,0 +1,25 @@
+dependencies: \
+  /Users/raanderson/Projects/thorium-mobile/ios/thoriummobile/AppDelegate.m \
+  /Users/raanderson/Projects/thorium-mobile/ios/thoriummobile/AppDelegate.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/UMReactNativeAdapter/UMModuleRegistryAdapter.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTBridgeModule.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTDefines.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTInspectorDevServerHelper.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTPackagerConnection.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/UMCore/UMModuleRegistryProvider.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/UMCore/UMModuleRegistry.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/UMCore/UMInternalModule.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/UMCore/UMDefines.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/UMCore/UMExportedModule.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/UMCore/UMViewManager.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/UMCore/UMModuleRegistryDelegate.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/UMCore/UMSingletonModule.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTBridgeDelegate.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTJavaScriptLoader.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/UMCore/UMAppDelegateWrapper.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTBundleURLProvider.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTRootView.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTBridge.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTFrameUpdate.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/React-Core/React/RCTInvalidating.h \
+  /Users/raanderson/Projects/thorium-mobile/ios/Pods/Headers/Public/UMReactNativeAdapter/UMNativeModulesProxy.h

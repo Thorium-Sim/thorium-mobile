@@ -49,6 +49,9 @@
         "com.sonyericsson.home.permission.BROADCAST_BADGE"
       ]
     },
-    "githubUrl": "https://github.com/Thorium-Sim/thorium-mobile"
-  }
+    "githubUrl": "https://github.com/Thorium-Sim/thorium-mobile",
+    "entryPoint": "node_modules/expo/AppEntry.js"
+  },
+  "displayName": "Thorium Mobile",
+  "name": "thoriummobile"
 }

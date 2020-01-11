@@ -6,9 +6,9 @@ import { onError } from "apollo-link-error";
 import { WebSocketLink } from "apollo-link-ws";
 import { Hermes } from "apollo-cache-hermes";
 import { InMemoryCache } from "apollo-cache-inmemory";
+import { getUniqueId } from "react-native-device-info";
 
-import Constants from 'expo-constants';
-const clientId = Constants.deviceId;
+const clientId = getUniqueId();
 
 let client;
 export function clearClient() {

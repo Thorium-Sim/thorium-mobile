@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, Alert } from "react-native";
-import Constants from 'expo-constants';
+import { getUniqueId } from "react-native-device-info";
 import { withApollo } from "react-apollo";
 import gql from "graphql-tag";
 import NumberButton from "./numberButton";
@@ -39,7 +39,7 @@ class RemoteAccess extends Component {
                 setKeypadEnteredCode(id: $id, code: $code)
               }
             `,
-            variables: { id: Constants.deviceId, code: enteredNums }
+            variables: { id: getUniqueId(), code: enteredNums }
           });
           this.setState({
             enteredNums: []

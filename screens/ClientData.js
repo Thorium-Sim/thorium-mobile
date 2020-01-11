@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text } from "react-native";
 import Constants from "expo-constants";
+import { getUniqueId } from "react-native-device-info";
 import { Query, withApollo } from "react-apollo";
 import gql from "graphql-tag";
 import SubscriptionHelper from "../helpers/subscriptionHelper";
@@ -8,7 +9,7 @@ import SimulatorData from "./SimulatorData";
 import * as allCards from "../cards";
 
 const cards = Object.keys(allCards);
-const clientId = Constants.deviceId;
+const clientId = getUniqueId();
 
 const queryData = `
 id
@@ -122,7 +123,7 @@ class ClientData extends Component {
                       color: "white"
                     }}
                   >
-                    ClientId: {Constants.deviceId}
+                    ClientId: {clientId}
                   </Text>
                   <Text
                     style={{

@@ -44,9 +44,9 @@ class InterfaceData extends Component {
     return (
       <Query query={QUERY} variables={{ simulatorId: this.props.simulator.id }}>
         {({ loading, data, subscribeToMore }) => {
-          const { interfaces } = data;
+          const { interfaces } = data || {};
           if (loading || !interfaces) return null;
-          const iFace = interfaces.find(i => i.id === this.props.interfaceId);
+          const iFace = interfaces.find((i) => i.id === this.props.interfaceId);
           return (
             <SubscriptionHelper
               subscribe={() =>
@@ -55,9 +55,9 @@ class InterfaceData extends Component {
                   variables: { simulatorId: this.props.simulator.id },
                   updateQuery: (previousResult, { subscriptionData }) => {
                     return Object.assign({}, previousResult, {
-                      interfaces: subscriptionData.data.interfaceUpdate
+                      interfaces: subscriptionData.data.interfaceUpdate,
                     });
-                  }
+                  },
                 })
               }
             >

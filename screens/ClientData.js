@@ -38,7 +38,7 @@ ${queryData}
 `;
 const SUBSCRIPTION = gql`
   subscription ClientUpdate($clientId: ID!) {
-    clientChanged(client: $clientId) {
+    clientChanged(clientId: $clientId) {
 ${queryData}
     }
   }
@@ -64,9 +64,9 @@ class ClientData extends Component {
             )
           }
         `,
-        variables: { client: clientId, label: Constants.deviceName, cards }
+        variables: { client: clientId, label: Constants.deviceName, cards },
       })
-      .catch(err => console.log({ err }));
+      .catch((err) => console.log({ err }));
   }
 
   componentWillUnmount() {
@@ -76,7 +76,7 @@ class ClientData extends Component {
           clientDisconnect(client: $id)
         }
       `,
-      variables: { id: clientId }
+      variables: { id: clientId },
     });
   }
   render() {
@@ -94,9 +94,9 @@ class ClientData extends Component {
                   variables: { clientId },
                   updateQuery: (previousResult, { subscriptionData }) => {
                     return Object.assign({}, previousResult, {
-                      clients: subscriptionData.data.clientChanged
+                      clients: subscriptionData.data.clientChanged,
                     });
-                  }
+                  },
                 })
               }
             >
@@ -106,42 +106,42 @@ class ClientData extends Component {
                     flex: 1,
                     justifyContent: "center",
                     alignItems: "center",
-                    padding: 10
+                    padding: 10,
                   }}
                 >
                   <Text
                     style={{
                       fontSize: 30,
                       color: "white",
-                      textAlign: "center"
+                      textAlign: "center",
                     }}
                   >
                     Waiting to connect to simulator...
                   </Text>
                   <Text
                     style={{
-                      color: "white"
+                      color: "white",
                     }}
                   >
                     ClientId: {clientId}
                   </Text>
                   <Text
                     style={{
-                      color: "white"
+                      color: "white",
                     }}
                   >
                     Client Name: {Constants.deviceName}
                   </Text>
                   <Text
                     style={{
-                      color: "white"
+                      color: "white",
                     }}
                   >
                     Flight: {client && client.flight && client.flight.name}
                   </Text>
                   <Text
                     style={{
-                      color: "white"
+                      color: "white",
                     }}
                   >
                     Simulator:{" "}
